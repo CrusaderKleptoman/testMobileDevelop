@@ -1,4 +1,4 @@
-import java.util.Scanner
+import java.util.*
 
 val reader = Scanner(System.`in`)
 val start:Int = 10
@@ -11,21 +11,29 @@ var logic = Calculate()
 
 fun main(args: Array<String>) {
     println("Введите изменение дистанции, в диапазоне больше 0% и меньше 50%")
-    changeDistance = 1+reader.nextFloat()/100
+    try{
+        changeDistance = 1+reader.nextFloat()/100
+    }catch (e: InputMismatchException)
+    {
+        println("Некорректный ввод")
+        return
+    }
+
     var result = logic.findResult(changeDistance)
-    println("Количество дней = ${result[0]}")
-    println("Суммарная дистанция = ${result[1]}")
+    println(result[0])
+    println(result[1])
 }
 class Calculate()
 {
     fun findResult(changeDistance:Float): Array<String>{
-    while (sumDistance<finish) {
-        distance *= changeDistance
-        sumDistance += distance
-        day++
-    }
-    var result = arrayOf(day.toString(), sumDistance.toString())
-    return result}
+        if(changeDistance>1.5 || changeDistance<1) return arrayOf("", "Неверно задано изменение дистанции")
+        while (sumDistance<finish) {
+            distance *= changeDistance
+            sumDistance += distance
+            day++
+        }
+        var result = arrayOf("Количество дней = ${day}", "Суммарная дистанция = ${sumDistance}")
+        return result}
 }
 
 
